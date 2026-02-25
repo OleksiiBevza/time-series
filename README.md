@@ -27,9 +27,10 @@ For each window, summary features are computed: mean, standard deviation, min, m
 without shuffling (time order is preserved).
 
 5. **Offline Learning**
+6. 
 Chosen models: Logistic regression and Random Forests. Threshold on validation set was chosen as $False Positive Rate ≤ 1%$. Results for logistic regression: reasonable recall but high false positives. Results for random forest: almost no false alarms but misses almost all future failures. The reason is that offline models were trained once on past observations and freezed. They also assume that data comes from a stationary distribution, but system load changes (concept drift occurs) and offline models simply cannot adapt to this scenario. The theoretical limitations mentioned in a paper became evident. For this reasons it was decided to implement online methods.
 
-6. **Online Learning**
+7. **Online Learning**
 
 Online learning includes
 
@@ -38,7 +39,8 @@ Online learning includes
 
 Online models used: Online logistic regression, OAUE-like Ensemble trees
 
-7. **Conclusions** 
+7. **Conclusions**
+   
 Offline models cannot be trusted under concept drift while online models are much more adaptable. This project extends prior real-time SLA detection work [Predicting SLA Violations in Real Time using Online Machine Learning](https://arxiv.org/abs/1509.01386) by: reformulating the task into future failure prediction and implementing relevant models with reasonable performance. 
 
 
