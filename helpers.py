@@ -12,15 +12,6 @@ from itertools import product
 import warnings
 warnings.filterwarnings('ignore')
 
-# my helpers
-from helpers import *
-
-# packages for modelling
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import average_precision_score, precision_recall_fscore_support, balanced_accuracy_score
 
 
 
@@ -276,15 +267,13 @@ def fpr_at_threshold(p, y, thr):
 
 
 
-# ------------------------------------------------------
-# 9. EVALUATION
-# ------------------------------------------------------
-def evaluate_simple(p_test, y_test, thr):
-    """
-    Function evaluates results of the models
-    """
-    pr_auc = average_precision_score(y_test, p_test)
-    y_hat = (p_test >= thr).astype(int)
-    precision, recall, f1, _ = precision_recall_fscore_support(y_test, y_hat, average="binary", zero_division=0)
-    ba = balanced_accuracy_score(y_test, y_hat)
-    return pr_auc, precision, recall, f1, ba
+
+
+
+
+
+
+
+
+
+
