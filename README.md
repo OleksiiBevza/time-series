@@ -11,6 +11,8 @@ The repository consist from:
 
 3. helpers.py file where functions for preprocessing are defined;
 
-4. modelling.ipynb file where the solution for the task can be found;
+4. online_methods.py where methodology for online models was defined
 
-5. 1_EDA_all_columns.txt is just a report generated to improve readability of the data
+5. modelling.ipynb file where the solution for the task can be found;
+
+6. 1_EDA_all_columns.txt is just a report generated to improve readability of the data
