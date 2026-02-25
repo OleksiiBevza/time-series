@@ -15,11 +15,36 @@ Service assurance systems must detect and ideally predict Service Level Agreemen
 
 3. **My extension: early arning failure prediction**
 
-Instead of real-time detection, I formulate the task as: **Predict whether a failure will occur within the next H seconds.** Given the previous $W$ seconds of server metrics, $X_{t-W+1:t}$, predict whether a failure will occur in $[t+1, t+H]$.
-
+Instead of real-time detection, I formulate the task as: **Predict whether a failure will occur within the next H seconds.** Given the previous $W$ seconds of server metrics, $X_{t-W+1:t}$, predict whether a failure will occur in $[t+1, t+H]$. A failure is defined as FPS (video frame rate) < 20.
 In this project:
 - Look-back window: $W = 60$ seconds  
 - Prediction horizon: $H = 30$ seconds
+
+4. **Sliding Window Dataset Construction**
+
+Each training example consists of: (i) input: last W = 60 seconds of server metrics, (ii) target: 1 if any incident occurs within next H = 30 seconds
+For each window, summary features are computed: mean, standard deviation, min, maximum, last observed value. It is needed to make a fixed-length vector. Data is split in 3 sets: 70% train, 15% validate, 15% test
+without shuffling (time order is preserved).
+
+5. **Offline Learning**
+Chosen models: Logistic regression and Random Forests. Threshold on validation set was chosen as $False Positive Rate ≤ 1%$. Results for logistic regression: reasonable recall but high false positives. Results for random forest: almost no false alarms but misses almost all future failures. The reason is that offline models were trained once on past observations and freezed. They also assume that data comes from a stationary distribution, but system load changes (concept drift occurs) and offline models simply cannot adapt to this scenario. The theoretical limitations mentioned in a paper became evident. For this reasons it was decided to implement online methods.
+
+6. **Online Learning**
+
+Online learning includes
+
+- Prequential evaluation (predict and update), for each new sample you: (i) predict probability of failure, (ii) convert to binary decision using adaptive threshold, (iii) update model with true label, (iv) update threshold. Using prequential evaluation chosen model never sees the future and has a stream of data to deal with. 
+- Adaptive threshold $False Positive Rate ≤ 1%$, It is achieved by: (i) track latest predictions and true labels (sliding window), (ii) estimate rolling false positive rate, (iii) if false positive rate is big you increae threshold, (iv) if false positive rate is small you decrease threshold.
+
+Online models used: Online logistic regression, OAUE-like Ensemble trees
+
+7. **Conclusions** 
+Offline models cannot be trusted under concept drift while online models are much more adaptable. This project extends prior real-time SLA detection work [Predicting SLA Violations in Real Time using Online Machine Learning](https://arxiv.org/abs/1509.01386) by: reformulating the task into future failure prediction and implementing relevant models with reasonable performance. 
+
+
+
+
+
 
 
 
