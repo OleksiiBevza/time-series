@@ -43,7 +43,7 @@ Online models used: Online logistic regression, OAUE-like Ensemble trees
    
 Offline models cannot be trusted under concept drift while online models are much more adaptable. This project extends prior real-time SLA detection work [Predicting SLA Violations in Real Time using Online Machine Learning](https://arxiv.org/abs/1509.01386) by: reformulating the task into future failure prediction and implementing relevant models with reasonable performance. 
 
-
+Nice [repository](https://github.com/xialeiliu/Awesome-Incremental-Learning) where articles related to online/continuallearning are gathered
 
 
 
