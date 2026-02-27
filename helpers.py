@@ -191,8 +191,7 @@ def flatten_windows(X_windows: np.ndarray) -> np.ndarray:
 # ------------------------------------------------------
 def summary_features(X_windows: np.ndarray) -> np.ndarray:
     """"
-    Function takes (Number of samples, Time window, Features)
-    and reshapes to (Number of samples, 5 * Features)
+    Function calculates summary statistics
     """
     # X_windows: (N, W, F) -> (N, 5*F) using mean,std,min,max,last over W
     # basic stats across the time dimension (axis=1)
